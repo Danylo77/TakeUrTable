@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація ресторану - TakeUrTable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* білий */
+            color: #006400; /* зелений */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff; /* білий */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #006400; /* зелений */
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #006400; /* зелений */
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #006400; /* зелений */
+            color: #ffffff; /* білий */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #004d00; /* темно-зелений */
+        }
+        .hint {
+            font-size: 14px;
+            color: #888888; /* сірий */
+            text-align: left;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Реєстрація ресторану - TakeUrTable</h1>
+    <form>
+        <input type="text" name="name" placeholder="Ваше ім'я" required>
+        <input type="tel" name="phone" placeholder="Ваш номер телефону" required>
+        <input type="email" name="email" placeholder="Ваш емейл" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <input type="text" name="restaurant_name" placeholder="Назва закладу" required>
+        <input type="text" name="city" placeholder="Місто" required>
+        <input type="text" name="address" placeholder="Адреса" required>
+        <textarea name="additional_info" rows="4" placeholder="Інформація про заклад" required></textarea>
+        <input type="file" name="photo" accept="image/*">
+        <span class="hint">Виберіть файл або залиште посилання на фото вашого закладу.</span>
+        <button class="btn" type="submit">Зареєструвати</button>
+    </form>
+    <p class="hint">Будь ласка, заповніть усі поля для реєстрації вашого ресторану.</p>
+</div>
+</body>
+</html>
