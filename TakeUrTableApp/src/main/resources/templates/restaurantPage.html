@@ -83,9 +83,9 @@
 <body>
 <div class="container">
   <img src="restaurant.jpg" alt="Фото закладу">
-  <h1>Назва закладу</h1>
-  <p>Адреса закладу</p>
-  <p>Коротка інформація про заклад</p>
+  <h1 th:text="${restaurant.restaurantName.toString()}"></h1>
+  <p th:text="${restaurant.address}"></p>
+  <p th:text="${restaurant.information}"></p>
   <button class="btn" id="bookBtn">Забронювати столик</button>
 </div>
 
