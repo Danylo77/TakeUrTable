@@ -1,55 +1,250 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ласкаво просимо до TakeUrTable</title>
+    <title>TakeUrSeat</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* білий */
-            color: #006400; /* зелений */
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #008374;
+            color: #fff;
+            padding: 15px 20px;
+        }
+
+        .main-header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            height: 100vh;
         }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background-color: #ffffff; /* білий */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .logo {
+            font-size: 24px;
         }
-        h1 {
-            color: #006400; /* зелений */
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        p {
-            margin-bottom: 20px;
-            font-size: 18px;
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
         }
-        .btn {
-            background-color: #006400; /* зелений */
-            color: #ffffff; /* білий */
-            padding: 10px 20px;
-            border: none;
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
             border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
         }
-        .btn:hover {
-            background-color: #004d00; /* темно-зелений */
+
+        .container {
+            display: flex;
+            align-items: center;
+            height: calc(100vh - 50px); /* Высота экрана минус высота заголовка */
+            padding: 0 100px; /* Увеличиваем горизонтальные отступы */
+            background-color: #008374;
         }
+
+
+        .container3 {
+            display: flex;
+            align-items: center;
+            height: 100vh; /* Высота экрана минус высота заголовка */
+            padding: 0 100px; /* Увеличиваем горизонтальные отступы */
+            background-color: #008374;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .text {
+            flex: 1;
+            padding-right: 20px;
+            color: white;
+        }
+
+        .image {
+            flex: 1;
+            text-align: right;
+        }
+        .text2 {
+            flex: 1;
+            padding-right: 20px;
+            color: black;
+        }
+
+        .image2 {
+            flex: 1;
+            text-align: right;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 5px;
+        }
+        .btn-start{
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 1px;
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 50px;
+            transition: 0.3s;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-start:hover{
+            border: 2px solid rgb(255, 255, 255);
+        }
+        .container p{
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .container2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 120vh;
+            background-color: white;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .block1,
+        .block2 {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin-bottom: 20px;
+            align-items: flex-start; /* Елементи починаються з верхнього краю */
+        }
+
+        .text-block1,
+        .text-block2,
+        .text-block3,
+        .text-block4 {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Вирівнюємо елементи по центру горизонталі */
+            align-items: center; /* Вирівнюємо елементи по центру вертикалі */
+        }
+
+        .text-block1,
+        .text-block2 {
+            align-self: flex-start; /* Перший елемент в кожному блоку розпочинається з верхнього краю */
+            width: 30%;
+        }
+
+        .image2,
+        .image3,
+        .image4,
+        .image5 {
+            margin-bottom: 10px;
+            max-width: 200px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+
+
+
     </style>
 </head>
 <body>
+<header>
+    <div class="main-header">
+        <div class="logo">TakeUrTable</div>
+        <nav>
+            <ul>
+                <li><a href="#offer">Що ми пропонуємо?</a></li>
+                <li><a href="#about">Про нас</a></li>
+                <li><button class="btn-start">Розпочати</button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 <div class="container">
-    <h1>Ласкаво просимо до TakeUrTable</h1>
-    <p>Забудьте про стрес і чекання на вибір столика у вашому улюбленому ресторані! TakeUrTable допоможе вам забронювати найкращий столик в мить! Заощадьте час і насолоджуйтесь їжею та атмосферою у вашому обраному закладі. Почніть вже зараз!</p>
-    <button class="btn">Почати</button>
+    <div class="text">
+        <h1>Система
+            менеджменту бронювань
+            для ресторанів, до яких гості захочуть повернутися</h1>
+        <p>Витрачай час на дійсно важливі речі, а процеси менеджменту ресторану залиш на нашу платформу</p>
+        <br>
+        <div style="text-align: center;">
+            <button class="btn-start">Розпочати</button>
+        </div>
+    </div>
+    <div class="image">
+        <img src="https://img.freepik.com/free-vector/people-eating-restaurant-concept-illustration_114360-25075.jpg?t=st=1714943841~exp=1714947441~hmac=38677828f69e98bd3bb5a59a98e33ae5b0a59b4bf96b3a32b99764c67ebb0d5d&w=900" alt="Фото">
+    </div>
+</div>
+<div class="container2">
+    <h1>Хочете спростити процеси бронювання?</h1>
+    <div class="block1">
+        <div class="text-block1">
+            <div class="image2">
+                <img src="https://img.freepik.com/free-vector/another-coffee-concept-illustration_114360-7845.jpg?t=st=1714983824~exp=1714987424~hmac=0ec2dba617c9c298b5f0499ccb5a6a3fa61410e8ddbda610766df0297277e802&w=740" alt="Фото">
+            </div>
+            <p>Впорядкуйте процеси бронювання</p>
+        </div>
+        <div class="text-block2">
+            <div class="image3">
+                <img src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=740&t=st=1714984220~exp=1714984820~hmac=8c542f4e09622885fae4001051effed92d4ef8acd853a5db90c35088eaa21667" alt="Фото">
+            </div>
+            <p>Позбудьтеся накладок</p>
+        </div>
+    </div>
+    <div class="block2">
+        <div class="text-block1">
+            <div class="image4">
+                <img src="https://img.freepik.com/free-vector/revenue-concept-illustration_114360-2803.jpg?w=740&t=st=1714984159~exp=1714984759~hmac=1c2e4d5ca43dfbacf489d82e455e655d3e1edda08f11e5b2b918b8beaf5be8b9" alt="Фото">
+            </div>
+            <p>Збільшіть посадку залу</p>
+        </div>
+        <div class="text-block2">
+            <div class="image5">
+                <img src="https://img.freepik.com/free-vector/accounting-concept-illustration_114360-16970.jpg?w=740&t=st=1714984050~exp=1714984650~hmac=2233bdfd2c83bf3464f23e68b38099ac05f78e5ec98102f4d5ac7a4345669fe6" alt="Фото">
+            </div>
+            <p>Знаходьте потрібну інформацію за секунди</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</div>
+<div class="container3">
+    <div class="text3" style="text-align: center; color: white;">
+        <strong>TakeUrTable</strong> - це інноваційний інструмент для бронювання столиків у ресторанах.
+        <br><br>Він створений для того, щоб забезпечити швидкий та зручний спосіб для клієнтів забронювати стіл
+        в ресторані за допомогою веб-сторінки. Основним функціоналом сервісу є
+        можливість бронювання столиків у різних ресторанах з вибором дати та інших аспектів.
+        <br><br>Крім того, сервіс може мати додаткові функції, такі як нагадування про бронювання за допомогою повідомлень.
+        <br><br>Цей сервіс дозволяє ресторанам забезпечити кращий сервіс для своїх клієнтів і підвищити
+        ефективність свого бізнесу.
+
+    </div>
+
 </div>
 </body>
 </html>

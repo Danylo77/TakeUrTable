@@ -1,194 +1,137 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Заклад - TakeUrTable</title>
+  <title>Реєстрація ресторану - TakeUrTable</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0; /* білий */
-      color: #006400; /* зелений */
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #008374;
+      color: white;
     }
+
     .container {
-      text-align: center;
+      max-width: 500px;
+      max-height: 80vh;
+      margin: 5vh auto;
       padding: 20px;
-      background-color: #ffffff; /* білий */
+      background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      overflow-y: auto;
     }
-    h1, p {
-      margin: 10px 0;
+
+    h1 {
+      margin-bottom: 20px;
+      color: #008374; /* Зелений колір */
     }
-    img {
-      width: 80%;
-      border-radius: 10px;
+
+    .big-text {
+      font-size: 24px;
       margin-bottom: 10px;
     }
-    .btn {
-      background-color: #006400; /* зелений */
-      color: #ffffff; /* білий */
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+
+    .gray-text {
+      color: #666666; /* Сірий колір */
+      margin-bottom: 10px;
     }
-    .btn:hover {
-      background-color: #004d00; /* темно-зелений */
+
+    .black-text {
+      color: black; /* Чорний колір */
+      margin-bottom: 10px;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
+
+    .phone-number {
+      padding: 10px;
+      color: #666666;
     }
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      border-radius: 10px;
+
+    .btn{
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 50px;
+      transition: 0.3s;
+      color: #fff;
+      background: #1a9082;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.1);
     }
-    .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .hidden {
-      display: none;
+    .btn:hover{
+      border: 2px solid rgb(255, 255, 255);
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <img src="restaurant.jpg" alt="Фото закладу">
-  <h1 th:text="${restaurant.restaurantName.toString()}"></h1>
-  <p th:text="${restaurant.address}"></p>
-  <p th:text="${restaurant.information}"></p>
-  <button class="btn" id="bookBtn">Забронювати столик</button>
+  <img th:src="${restaurant.photo}" alt="Фотографія" style="width: 100px; border-radius: 50%; margin-top: 10px;">
+
+  <h1 th:text="${restaurant.restaurantName}"></h1>
+  <p class="gray-text" th:text="${restaurant.address}"></p>
+  <p class="black-text" th:text="${restaurant.information}"></p>
+  <button class="btn" id="reserveBtn">Забронювати столик</button>
+  <br>
+  <p class="phone-number" th:text="${restaurant.phone}"></p>
 </div>
+<!-- Діалогове вікно -->
+<div id="dialog" style="display: none;">
+  <h2 class="big-text">Забронювати столик</h2>
+  <form id="reservationForm">
+    <input type="text" name="name" placeholder="Ім'я" required><br><br>
+    <input type="tel" name="phone" placeholder="Номер телефону" required><br><br>
+    <button type="submit" class="btn">Надіслати код</button>
+  </form>
 
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Бронювання столика</h2>
-    <form id="bookingLoginForm">
-      <input type="text" id="name" name="name" placeholder="Ваше ім'я" required><br>
-      <input type="tel" id="phone" name="phone" placeholder="Ваш номер телефону" required><br>
-      <button type="button" id="sendCodeBtn">Відправити код</button>
-      <div id="codeInput" class="hidden">
-        <input type="text" id="code" name="code" placeholder="Введіть код" required><br>
-        <button type="button" id="confirmBtn">Підтвердити</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div id="bookingDetails" class="modal hidden">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Бронювання столика</h2>
-    <form id="bookingForm">
-      <label for="date">Дата:</label>
-      <input type="date" id="date" name="date" required><br>
-
-      <label for="time">Час:</label>
-      <select id="time" name="time" required>
-        <option value="" disabled selected>Оберіть час</option>
-        <!-- Генеруємо варіанти вибору часу від 10:00 до 23:00 -->
-        <!-- Зверніть увагу, що значення value відповідають реальним часам, які можуть бути оброблені на сервері -->
-        <?php
-                    for ($i = 10; $i <= 23; $i++) {
-                        echo "<option value='$i'>$i:00</option>";
-        }
-        ?>
-      </select><br>
-
-      <label for="event">Подія:</label>
-      <select id="event" name="event" required>
-        <option value="" disabled selected>Оберіть подію</option>
-        <option value="business_meeting">Ділова зустріч</option>
-        <option value="date">Побачення</option>
-        <option value="family_outing">Сімейний відпочинок</option>
-        <option value="meeting_friends">Зустріч із друзями</option>
-        <option value="birthday">День народження</option>
-        <option value="other">Інше</option>
-      </select><br>
-
-      <label for="comment">Коментар:</label>
-      <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
-
-      <button type="submit">Забронювати</button>
-    </form>
-  </div>
+  <!-- Поле для вводу коду -->
+  <input type="text" id="verificationCode" placeholder="Код підтвердження"><br><br>
+  <button type="button" class="btn" id="verifyBtn">Перевірити код</button>
 </div>
 
 <script>
-  // Get the modals
-  var modal = document.getElementById("myModal");
-  var bookingDetailsModal = document.getElementById("bookingDetails");
+  document.getElementById('reserveBtn').addEventListener('click', function() {
+    document.getElementById('dialog').style.display = 'block';
+  });
 
-  // Get the buttons that opens the modals
-  var btn = document.getElementById("bookBtn");
+  document.getElementById('reservationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-  // Get the <span> elements that closes the modals
-  var span = document.getElementsByClassName("close");
+    var formData = new FormData(this);
 
-  // Get the buttons inside the modal content
-  var sendCodeBtn = document.getElementById("sendCodeBtn");
-  var confirmBtn = document.getElementById("confirmBtn");
+    fetch('/reserve', {
+      method: 'POST',
+      body: formData
+    })
+            .then(response => {
+              if (response.ok) {
+                return response.text();
+              }
+              throw new Error('Неможливо забронювати столик');
+            })
+            .then(data => {
+              // Обробка успішного відгуку від сервера
+              console.log(data);
+            })
+            .catch(error => {
+              // Обробка помилки
+              console.error('Помилка:', error);
+            });
+  });
 
-  // When the user clicks the button, open the modal
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
 
-  // When the user clicks on <span> (x), close the modal
-  for (var i = 0; i < span.length; i++) {
-    span[i].onclick = function() {
-      modal.style.display = "none";
-      bookingDetailsModal.style.display = "none";
-    }
-  }
+  document.getElementById('verifyBtn').addEventListener('click', function() {
+    var verificationCode = document.getElementById('verificationCode').value;
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
-  // Show code input field when "Send Code" button is clicked
-  sendCodeBtn.onclick = function() {
-    document.getElementById("codeInput").classList.remove("hidden");
-  };
-
-  // Show booking details modal when "Confirm" button is clicked
-  confirmBtn.onclick = function() {
-    modal.style.display = "none";
-    bookingDetailsModal.style.display = "block";
-  };
+    // Ваш AJAX-запит на сервер для перевірки коду підтвердження
+    // Наприклад, використовуйте fetch або jQuery AJAX
+    // Після отримання відповіді ви можете відобразити повідомлення користувачеві
+  });
+</script>
 </script>
 </body>
 </html>

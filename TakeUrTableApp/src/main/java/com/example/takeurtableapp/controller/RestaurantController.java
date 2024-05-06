@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class RestaurantController {
 //    public String showRestaurant(@PathVariable Long id, Model model) {
 //        Restaurant restaurant = restaurantService.getRestaurantById(id);
 //        model.addAttribute("restaurant", restaurant);
+//        System.out.println(restaurant.getRestaurantName());
 //        return "restaurantPage";
 //    }
 
@@ -40,8 +42,12 @@ public class RestaurantController {
             model.addAttribute("restaurant", restaurant);
         }
         else{
-            model.addAttribute("restaurant", new Restaurant(-999L,"Error","Error","Error","Error","Error","Error","Error","Error","Error"));
+            restaurant = new Restaurant(-999L,"","","","","","","","","");
+            model.addAttribute("restaurant", restaurant);
         }
+        System.out.println(restaurant.getRestaurantName());
+        System.out.println("1");
         return "restaurantPage";
     }
+
 }
