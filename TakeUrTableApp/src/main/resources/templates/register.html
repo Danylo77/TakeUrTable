@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmls:th="http://www.thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
             height: 80vh;
             max-width: 500px;
             margin: 10vh auto;
-            padding: 20px;
+            padding: 5px 20px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -95,25 +95,28 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">
+            You have successfully registered our app!
+        </div>
+    </div>
     <h1>Реєстрація ресторану - TakeUrTable</h1>
-    <form>
-        <input type="text" name="name" placeholder="Ваше ім'я" required>
-        <input type="tel" name="phone" placeholder="Ваш номер телефону" required>
-        <input type="email" name="email" placeholder="Ваш емейл" required>
-        <input type="password" name="password" placeholder="Пароль" required>
-        <input type="text" name="restaurant_name" placeholder="Назва закладу" required>
-        <input type="text" name="city" placeholder="Місто" required>
-        <input type="text" name="address" placeholder="Адреса" required>
-        <textarea name="additional_info" rows="4" placeholder="Інформація про заклад" required></textarea>
-        <label class="file-upload">
-            Виберіть файл
-            <input type="file" name="photo" accept="image/*">
-        </label>
-        <span class="hint">або</span>
-        <input type="text" name="photo_link" placeholder="Посилання на фото">
+    <form
+    method="post"
+    role="form"
+    th:action="@{/register/save}"
+    th:object="${restaurantDto}">
+        <input type="text" name="administratorName" id="administratorName" placeholder="Ваше ім'я" required th:field="*{administratorName}">
+        <input type="tel" name="phone" placeholder="Ваш номер телефону" required th:field="*{phone}">
+        <input type="email" name="email" placeholder="Ваш емейл" required th:field="*{email}">
+        <input type="password" name="password" placeholder="Пароль" required th:field="*{password}">
+        <input type="text" name="restaurant_name" placeholder="Назва закладу" required th:field="*{restaurantName}">
+        <input type="text" name="city" placeholder="Місто" required th:field="*{city}">
+        <input type="text" name="address" placeholder="Адреса" required th:field="*{address}">
+        <textarea name="additional_info" rows="4" placeholder="Інформація про заклад" required th:field="*{information}"></textarea>
+        <input type="text" name="photo_link" placeholder="Посилання на фото" th:field="*{photo}">
         <button class="btn" type="submit">Зареєструвати</button>
     </form>
-    <p class="hint">Будь ласка, заповніть усі поля для реєстрації вашого ресторану.</p>
 </div>
 </body>
 </html>
