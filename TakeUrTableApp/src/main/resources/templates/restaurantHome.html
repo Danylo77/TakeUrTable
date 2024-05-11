@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Header</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+    }
+    .sidebar {
+      width: 20vw;
+      height: 100vh;
+      background-color: #fcfcfc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-right: solid #f8faf8;
+      margin-bottom: 200px;
+      padding-top: 0px;
+    }
+    .side-item{
+      margin-top: 20px;
+    }
+    .sidebar p {
+      text-align: left;
+    }
+    .name{
+      font-size: 32px;
+      font-weight: bolder;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="side-item restaurant">
+      <p class="name">Marevo</p>
+    </div>
+    <div class="side-item active">
+      <p><span class="icon">🟢</span>Активні</p>
+    </div>
+    <div class="side-item nonaccept">
+      <p><span class="icon">🟢</span>Неприйняті</p>
+    </div>
+    <div class="side-item history">
+      <p><span class="icon">🟢</span>Історія</p>
+    </div>
+  </div>
+  <div class="content">
+    <!-- Тут ваш вміст -->
+  </div>
+</div>
+
+</body>
+</html>
