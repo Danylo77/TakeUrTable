@@ -2,6 +2,7 @@ package com.example.takeurtableapp.controller;
 
 import com.example.takeurtableapp.dto.RestaurantDto;
 import com.example.takeurtableapp.entity.Restaurant;
+import com.example.takeurtableapp.forms.ReservationForm;
 import com.example.takeurtableapp.repository.RestaurantRepository;
 import com.example.takeurtableapp.service.RestaurantService;
 import jakarta.validation.Valid;
@@ -70,4 +71,17 @@ public class RestaurantController {
         return "redirect:/register?sucess";
     }
 
+    @GetMapping("/restaurant/{name}/booking")
+    public String showRestaurantBooking(@PathVariable String name, Model model) {
+        Restaurant restaurant = restaurantService.getRestaurantByName(name);
+        if (restaurant != null){
+            model.addAttribute("restaurant", restaurant);
+        }
+        else{
+            restaurant = new Restaurant(-999L,"","","","","","","","","");
+            model.addAttribute("restaurant", restaurant);
+        }
+        System.out.println("Booking for" + restaurant.getRestaurantName());
+        return "restaurantBooking";
+    }
 }

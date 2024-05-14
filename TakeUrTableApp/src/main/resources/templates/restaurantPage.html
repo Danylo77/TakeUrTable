@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <title>Реєстрація ресторану - TakeUrTable</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
       background-color: #008374;
       color: white;
     }
@@ -66,6 +71,15 @@
     .btn:hover{
       border: 2px solid rgb(255, 255, 255);
     }
+    .dialog-log{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1b7522;
+      padding: 20px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -80,58 +94,65 @@
   <p class="phone-number" th:text="${restaurant.phone}"></p>
 </div>
 <!-- Діалогове вікно -->
-<div id="dialog" style="display: none;">
+<div class="dialog-log" id="dialog" style="display: none;">
   <h2 class="big-text">Забронювати столик</h2>
-  <form id="reservationForm">
-    <input type="text" name="name" placeholder="Ім'я" required><br><br>
-    <input type="tel" name="phone" placeholder="Номер телефону" required><br><br>
+  <form id="reservationFormWindow" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" id="name" name="name" placeholder="Ім'я" required><br><br>
+    <input type="tel" id="phone" name="phone" placeholder="Номер телефону" required><br><br>
     <button type="submit" class="btn">Надіслати код</button>
   </form>
 
-  <!-- Поле для вводу коду -->
+
+
   <input type="text" id="verificationCode" placeholder="Код підтвердження"><br><br>
   <button type="button" class="btn" id="verifyBtn">Перевірити код</button>
 </div>
 
 <script>
+  var verificationCode = 1000;
   document.getElementById('reserveBtn').addEventListener('click', function() {
     document.getElementById('dialog').style.display = 'block';
   });
 
-  document.getElementById('reservationForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    var formData = new FormData(this);
-
-    fetch('/reserve', {
-      method: 'POST',
-      body: formData
-    })
-            .then(response => {
-              if (response.ok) {
-                return response.text();
-              }
-              throw new Error('Неможливо забронювати столик');
-            })
-            .then(data => {
-              // Обробка успішного відгуку від сервера
-              console.log(data);
-            })
-            .catch(error => {
-              // Обробка помилки
-              console.error('Помилка:', error);
-            });
+  document.addEventListener('DOMContentLoaded', function() {
+    const reservationFormWindow = document.getElementById('reservationFormWindow');
+    reservationFormWindow.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const formData = new FormData(reservationFormWindow);
+      fetch('/sendSMS', {
+        method: 'POST',
+        body: formData
+      })
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                verificationCode = data;
+              })
+              .catch(error => console.error('Помилка:', error));
+    });
   });
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const verificationCodeInput = document.getElementById('verificationCode');
+    const verifyBtn = document.getElementById('verifyBtn');
+    verifyBtn.addEventListener('click', function() {
 
-  document.getElementById('verifyBtn').addEventListener('click', function() {
-    var verificationCode = document.getElementById('verificationCode').value;
-
-    // Ваш AJAX-запит на сервер для перевірки коду підтвердження
-    // Наприклад, використовуйте fetch або jQuery AJAX
-    // Після отримання відповіді ви можете відобразити повідомлення користувачеві
+      const enteredCode = verificationCodeInput.value.trim();
+      if (enteredCode === verificationCode.toString()) {
+        alert('Код підтвердження вірний!');
+        console.log("Entered:", enteredCode, " send:", verificationCode);
+        const currentPath = window.location.pathname;
+        const redirectTo = currentPath + '/booking';
+        // Переадресація на отриманий шлях
+        window.location.href = redirectTo;
+        // Додати код, який виконується, якщо код вірний
+      } else {
+        alert('Код підтвердження невірний. Спробуйте ще раз.');
+        console.log("Entered:", enteredCode, " send:", verificationCode);
+        // Додати код, який виконується, якщо код невірний
+      }
+    });
   });
-</script>
 </script>
 </body>
 </html>

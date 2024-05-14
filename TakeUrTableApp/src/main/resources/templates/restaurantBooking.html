@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Реєстрація ресторану - TakeUrTable</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      background-color: #008374;
+      color: white;
+    }
+
+    .container {
+      max-width: 500px;
+      max-height: 80vh;
+      margin: 5vh auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #008374; /* Зелений колір */
+    }
+
+    .big-text {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .gray-text {
+      color: #666666; /* Сірий колір */
+    }
+
+    .black-text {
+      color: black; /* Чорний колір */
+      margin-bottom: 10px;
+    }
+
+    .phone-number {
+
+      color: #666666;
+    }
+
+    .btn{
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 50px;
+      transition: 0.3s;
+      color: #fff;
+      background: #1a9082;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn:hover{
+      border: 2px solid rgb(255, 255, 255);
+    }
+    .dialog-log{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1b7522;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    /* Стилі для полів введення дати і часу */
+    input[type="date"],
+    input[type="time"],
+    input[type="number"],
+    input[type="text"],
+    select,
+    textarea {
+      width: calc(50% - 10px); /* Розділення на дві колонки, зазначте ширину відповідно */
+      margin: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #008374; /* Колір фону полів введення */
+      color: white;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    /* Стилі для кнопки */
+    .btn {
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 50px;
+      transition: 0.3s;
+      color: #fff;
+      background: #1a9082;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      border: 2px solid rgb(255, 255, 255);
+    }
+
+    textarea {
+      width: calc(100% - 20px);
+    }
+
+    /* Стилі для мобільних пристроїв */
+    @media (max-width: 600px) {
+      input[type="date"],
+      input[type="time"],
+      input[type="number"],
+      select,
+      textarea {
+        width: calc(100% - 20px);
+      }
+    }
+    .data-time{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .number-reason{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    ::placeholder {
+      color: white; /* Колір тексту плейсхолдера */
+    }
+    .block-information{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqugEiqYUSAeqkpHnTmq0JtKt_YPFHwpTJjZTwlPWgMg&s" alt="Фотографія" style="width: 100px; border-radius: 50%; margin-top: 10px;">
+  <div class="block-information">
+    <div>
+      <p class="phone-number" text="+38 (097) 717 1727">38 (097) 717 1727</p>
+    </div>
+    <div>
+      <h1 text="Shalom">Shalom</h1>
+    </div>
+    <div>
+      <p class="gray-text" text="вул.Виговського 14">вул.Виговського 14</p>
+    </div>
+  </div>
+
+
+  <!-- Форма для введення додаткових даних -->
+  <form id="reservationForm">
+    <div class ="data-time">
+      <input type="date" id="date" name="date" placeholder="Дата" required><br><br>
+      <input type="time" id="time" name="time" placeholder="Час" required><br><br>
+    </div>
+    <div class="number-reason">
+      <input type="number" id="people" name="people" placeholder="Кількість людей" required min="1" max="30"><br><br>
+
+      <select id="event" name="event">
+        <option value="Ділова зустріч">Ділова зустріч</option>
+        <option value="День народження">День народження</option>
+        <option value="Побачення">Побачення</option>
+        <option value="Сімейний відпочинок">Сімейний відпочинок</option>
+        <option value="Зустріч із друзями">Зустріч із друзями</option>
+        <option value="Інше">Інше</option>
+      </select><br><br>
+    </div>
+    <textarea id="comment" name="comment" placeholder="Чи є у вас додаткові побажання?"></textarea><br><br>
+    <button type="button" class="btn" id="reserveBtn">Підтвердити</button>
+  </form>
+</div>
+<script>
+
+</script>
+</body>
+</html>
