@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <title>TakeUrTable</title>
   <style>
     body {
@@ -146,51 +149,16 @@
       justify-content: space-around;
       align-items: center;
     }
+    h2, h4{
+      color: #008374;
+    }
   </style>
 </head>
 <body>
 <div class="container">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqugEiqYUSAeqkpHnTmq0JtKt_YPFHwpTJjZTwlPWgMg&s" alt="Фотографія" style="width: 100px; border-radius: 50%; margin-top: 10px;">
-  <div class="block-information">
-    <div>
-      <p class="phone-number" th:text="${restaurant.phone}"></p>
-    </div>
-    <div>
-      <h1 th:text="${restaurant.restaurantName}"></h1>
-    </div>
-    <div>
-      <p class="gray-text" th:text="${restaurant.address}"></p>
-      <p class="gray-text">м. <span th:text="${restaurant.city}"></span></p>
-
-    </div>
-  </div>
-
-
-  <!-- Форма для введення додаткових даних -->
-  <form id="reservationForm" th:object="${bookingDto}" th:action="@{/sendBooking}" method="post">
-    <input type="hidden" id="restaurantId" name="restaurantId" th:value="${bookingDto.restaurantId}">
-    <input type="hidden" id="userName" name="userName" th:value="${bookingDto.userName}">
-    <input type="hidden" id="userPhone" name="userPhone" th:value="${bookingDto.userPhone}">
-
-    <div class ="data-time">
-      <input type="date" id="date" name="date" placeholder="Дата" required th:field="*{date}"><br><br>
-      <input type="time" id="time" name="time" placeholder="Час" required th:field="*{time}"><br><br>
-    </div>
-    <div class="number-reason">
-      <input type="number" id="numberOfPeople" name="numberOfPeople" placeholder="Кількість людей" required min="1" max="30" th:field="*{numberOfPeople}"><br><br>
-
-      <select id="eventType" name="eventType" th:field="*{eventType}">
-        <option value="Ділова зустріч">Ділова зустріч</option>
-        <option value="День народження">День народження</option>
-        <option value="Побачення">Побачення</option>
-        <option value="Сімейний відпочинок">Сімейний відпочинок</option>
-        <option value="Зустріч із друзями">Зустріч із друзями</option>
-        <option value="Інше">Інше</option>
-      </select><br><br>
-    </div>
-    <textarea id="commentUser" name="commentUser" placeholder="Чи є у вас додаткові побажання?" th:field="*{commentUser}"></textarea><br><br>
-    <button type="submit" class="btn" id="reserveBtn">Підтвердити</button>
-  </form>
+  <img src="/mark.png" alt="Зображення" width="128px" height="128px">
+  <h2>Ваше бронювання успішно надіслане</h2>
+  <h4>Очікуйте підтвердження адміністратором</h4>
 </div>
 <script>
 

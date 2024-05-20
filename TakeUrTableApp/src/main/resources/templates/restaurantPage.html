@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <title>Реєстрація ресторану - TakeUrTable</title>
+  <title>TakeUrTable</title>
   <style>
     body {
       margin: 0;
@@ -76,9 +76,25 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: #1b7522;
+      background-color: #026b5c;
       padding: 20px;
       border-radius: 5px;
+      border: 2px solid white;
+      align-self: center;
+    }
+    .dialog-log > input{
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+    .d-name, .d-tel{
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #f1f1f1;
     }
   </style>
 </head>
@@ -97,11 +113,11 @@
 <div class="dialog-log" id="dialog" style="display: none;">
   <h2 class="big-text">Забронювати столик</h2>
   <form id="reservationFormWindow" method="post" enctype="application/x-www-form-urlencoded">
-    <input type="text" id="name" name="name" placeholder="Ім'я" required><br><br>
-    <input type="tel" id="phone" name="phone" placeholder="Номер телефону" required><br><br>
+    <input type="text" id="name" name="name" placeholder="Ім'я" required class="d-name"><br><br>
+    <input type="tel" id="phone" name="phone" placeholder="Номер телефону" required class="d-tel"><br><br>
     <button type="submit" class="btn">Надіслати код</button>
   </form>
-
+  <br>
 
 
   <input type="text" id="verificationCode" placeholder="Код підтвердження"><br><br>
@@ -139,17 +155,19 @@
 
       const enteredCode = verificationCodeInput.value.trim();
       if (enteredCode === verificationCode.toString()) {
-        alert('Код підтвердження вірний!');
-        console.log("Entered:", enteredCode, " send:", verificationCode);
-        const currentPath = window.location.pathname;
-        const redirectTo = currentPath + '/booking';
-        // Переадресація на отриманий шлях
-        window.location.href = redirectTo;
-        // Додати код, який виконується, якщо код вірний
+        if (enteredCode === verificationCode.toString()) {
+          console.log("Entered:", enteredCode, " send:", verificationCode);
+          const name = document.getElementById('name').value;
+          const phone = document.getElementById('phone').value;
+
+          const currentPath = window.location.pathname;
+          const redirectTo = currentPath + '/booking?userName=' + encodeURIComponent(name) + '&phone=' + encodeURIComponent(phone);
+
+          window.location.href = redirectTo;
+        }
       } else {
         alert('Код підтвердження невірний. Спробуйте ще раз.');
         console.log("Entered:", enteredCode, " send:", verificationCode);
-        // Додати код, який виконується, якщо код невірний
       }
     });
   });

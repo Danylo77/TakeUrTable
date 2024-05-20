@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vertical Header</title>
+  <title>TakeUrTable</title>
   <style>
     body {
       font-family: "Rubik", sans-serif;
@@ -28,6 +28,7 @@
       border-right: solid #f8faf8;
       margin-bottom: 200px;
       padding-top: 0px;
+      position: fixed;
     }
     .side-item{
       margin-top: 20px;
@@ -35,59 +36,113 @@
     .sidebar p {
       text-align: left;
     }
-    .name{
-      font-size: 32px;
-      font-weight: bolder;
-    }
-    .block {
+
+
+    .reservation {
+      margin-left: 500px;
+      margin-top: 20px;
       width: 350px;
-      height: 100px;
+      height: 120px;
       background-color: #008374;
-      border: 1px solid #ccc;
-      margin: 50px;
-      padding: 10px;
-      border-radius: 20px;
-    }
-    .name {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .phone {
-      font-size: 14px;
-      color: #666;
-    }
-    .info {
-      padding: 10px;
-      display: flex;
-      height: 50px;
-      width: 230px;
-      margin-left: 75px;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .info p {
-      border: 1px solid #027568;
-      padding: 10px;
       border-radius: 10px;
-      background-color: #027568;
+      padding: 10px;
     }
-    .name-phone{
+
+    .reservations-container {
+      display: flex; /* Використовуємо flexbox для розміщення блоків один під одним */
+      flex-direction: column; /* Розміщуємо блоки вертикально */
+    }
+
+    .reservation p {
+      margin: 0;
+    }
+
+    .reservation button {
+      font-weight: 15;
+      font-size: 12px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 6px 8px;
+      border-radius: 50px;
+      transition: 0.3s;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .first{
+      width: 100%;
+      height: 25%;
       display: flex;
-      width: 350px;
-      height: 50px;
+      align-items: center;
       justify-content: space-around;
+    }
+    .second{
+      font-size: 15px;
+      width: 100%;
+      height: 25%;
+      display: flex;
+    }
+    .three{
+      font-size: 15px;
+      width: 100%;
+      height: 25%;
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #026b5c;
+    }
+    .four{
+      width: 100%;
+      height: 25%;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
-    .name-person{
-      color: white;
-      font-size: 32px;
+    .four > button{
+      margin: 2px;
     }
-    .phone{
-      color: #cccccc;
-      font-size: 20px;
+    .second {
+      flex-wrap: wrap; /* Дозволяємо елементам переноситись на новий рядок при необхідності */
     }
-    .info p{
+
+    .second > div {
+      flex: 1; /* Рівномірно розподіляємо доступний простір між дочірніми елементами */
+      border: 1px solid #027568; /* Додайте потрібне оформлення за необхідності */
+      background-color: #027568;
+      border-radius: 5px;
+      margin: 1px; /* Додаємо маржі між блоками */
+      font-size: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b4b4b4;
+    }
+    .three > div {
+      flex: 1; /* Рівномірно розподіляємо доступний простір між дочірніми елементами */
+      margin: 1px; /* Додаємо маржі між блоками */
+      font-size: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
+    }
+    .firstName{
+      color: white;
+      font-weight: bolder;
+      font-size: 22px;
+    }
+    .firstPhone{
+      color: white;
+    }
+    .firstId{
+      color: #9d9b9b;
+    }
+    .content {
+      display: flex;
+      flex-direction: column; /* Встановлюємо напрямок розташування елементів по вертикалі */
     }
   </style>
 </head>
@@ -95,34 +150,558 @@
 
 <div class="container">
   <div class="sidebar">
-    <div class="side-item restaurant">
-      <p class="name">Marevo</p>
-    </div>
-    <div class="side-item active">
+    <h1 th:text="${restaurant.restaurantName}"></h1>
+    <div class="side-item active" onclick="showBookings('confirmed')">
       <p><span class="icon">🟢</span>Активні</p>
     </div>
-    <div class="side-item nonaccept">
+    <div class="side-item nonaccept" onclick="showBookings('unconfirmed')">
       <p><span class="icon">🟢</span>Неприйняті</p>
     </div>
-    <div class="side-item history">
+    <div class="side-item history" onclick="showBookings('archived')">
       <p><span class="icon">🟢</span>Історія</p>
     </div>
   </div>
+
   <div class="content">
-    <div class="block">
-      <div class="name-phone">
-        <p class="name-person">Ангеліна</p>
-        <p class="phone">+38097777777</p>
-      </div>
-      <div class="info">
-        <p class="reason">Побачення</p>
-        <p class="time">14:30</p>
-        <p class="number">4</p>
+    <div class="reservations-container">
+      <div th:each="booking : ${confirmedBookings}" class="reservation confirmed" style="display: block">
+        <!-- Додайте клас confirmed -->
+        <div class="first">
+          <input type="text" class="firstId" th:value="${booking.id}" style="display: none;">
+          <p class="firstName" th:text="${booking.userName}"></p>
+          <p class="firstPhone" th:text="${booking.userPhone}"></p>
+        </div>
+        <div class="second">
+          <div class="data">
+            <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>
+          </div>
+          <div class="number">
+            <p th:text="${booking.numberOfPeople}"></p>
+          </div>
+          <div class="reason">
+            <p th:text="${booking.eventType}"></p>
+          </div>
+          <div class="status">
+            <p th:text="${booking.status}"></p>
+          </div>
+        </div>
+        <div class="three">
+          <div>
+            <div class="comentUser">
+              <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>
+            </div>
+          </div>
+          <div class="comentAdmin">
+            <p>Коментар адміністратора:<span th:text="${booking.commentAdmin}"></span></p>
+          </div>
+        </div>
+        <div class="four">
+          <!--<button class="accept-button">Прийняти</button>-->
+          <button class="archive-button">Архівувати</button>
+          <button class="refuse-button">Скасувати</button>
+          <button class="sms-button">Нагадати</button>
+        </div>
       </div>
     </div>
 
-  </div>
-</div>
+    <!-- Аналогічно оновіть блоки для інших типів бронювань -->
+    <div th:each="booking : ${unconfirmedBookings}" class="reservation unconfirmed" style="display: none">
+      <!-- Додайте клас unconfirmed -->
+      <div class="first">
+        <input type="text" class="firstId" th:value="${booking.id}" style="display: none;">
+        <p class="firstName" th:text="${booking.userName}"></p>
+        <p class="firstPhone" th:text="${booking.userPhone}"></p>
+      </div>
+      <div class="second">
+        <div class="data">
+          <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>
+        </div>
+        <div class="number">
+          <p th:text="${booking.numberOfPeople}"></p>
+        </div>
+        <div class="reason">
+          <p th:text="${booking.eventType}"></p>
+        </div>
+        <div class="status">
+          <p th:text="${booking.status}"></p>
+        </div>
+      </div>
+      <div class="three">
+        <div>
+          <div class="comentUser">
+            <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>
+          </div>
+        </div>
+        <div class="comentAdmin">
+          <input type="text" class="inputComentAdmin" >
+        </div>
+      </div>
+      <div class="four">
+        <button class="accept-button">Прийняти</button>
+        <button class="refuse-button">Відхилити</button>
+      </div>
+    </div>
 
+    <div th:each="booking : ${archivedBookings}" class="reservation archived" style="display: none">
+      <!-- Додайте клас archived -->
+      <div class="first">
+        <input type="text" class="firstId" th:value="${booking.id}" style="display: none;">
+        <p class="firstName" th:text="${booking.userName}"></p>
+        <p class="firstPhone" th:text="${booking.userPhone}"></p>
+      </div>
+      <div class="second">
+        <div class="data">
+          <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>
+        </div>
+        <div class="number">
+          <p th:text="${booking.numberOfPeople}"></p>
+        </div>
+        <div class="reason">
+          <p th:text="${booking.eventType}"></p>
+        </div>
+        <div class="status">
+          <p th:text="${booking.status}"></p>
+        </div>
+      </div>
+      <div class="three">
+        <div>
+          <div class="comentUser">
+            <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>
+          </div>
+        </div>
+        <div class="comentAdmin" th:text="${booking.commentAdmin}"></div>
+      </div>
+      <div class="four">
+        <button class="refuse-button">Видалити</button>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+<script>
+  function showBookings(bookingsType) {
+    var reservations = document.querySelectorAll('.reservation');
+
+    reservations.forEach(function(reservation) {
+      reservation.style.display = "none";
+    });
+
+    if (bookingsType === 'confirmed') {
+      document.querySelectorAll('.confirmed').forEach(function(element) {
+        element.style.display = "block";
+      });
+    } else if (bookingsType === 'unconfirmed') {
+      document.querySelectorAll('.unconfirmed').forEach(function(element) {
+        element.style.display = "block";
+      });
+    } else if (bookingsType === 'archived') {
+      document.querySelectorAll('.archived').forEach(function(element) {
+        element.style.display = "block";
+      });
+    }
+  }
+
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(".accept-button").click(function() {
+      var bookingId = $(this).closest('.reservation').find('.firstId').val();
+      var bookingAdminComent = $(this).closest('.reservation').find('.inputComentAdmin').val();
+
+      // Виконуємо AJAX-запит POST на сервер для прийняття бронювання
+      $.ajax({
+        type: "POST",
+        url: "/accept-booking/" + bookingId,
+        contentType: "application/json", // Встановлюємо Content-Type як application/json
+        data: JSON.stringify({ comment: bookingAdminComent }), // Конвертуємо дані у формат JSON
+        success: function(data) {
+          // Після успішного прийняття бронювання оновлюємо сторінку
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          // Обробляємо помилку, якщо така виникне
+          console.error(xhr.responseText);
+          alert("Помилка при обробці запиту. Спробуйте ще раз.");
+        }
+      });
+
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $(".refuse-button").click(function() {
+      var bookingId = $(this).closest('.reservation').find('.firstId').val();
+
+      $.ajax({
+        type: "POST",
+        url: "/refuse-booking/" + bookingId,
+        success: function(data) {
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+          alert("Помилка при обробці запиту. Спробуйте ще раз.");
+        }
+      });
+
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $(".archive-button").click(function() {
+      var bookingId = $(this).closest('.reservation').find('.firstId').val();
+
+      $.ajax({
+        type: "POST",
+        url: "/archive-booking/" + bookingId,
+        success: function(data) {
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+          alert("Помилка при обробці запиту. Спробуйте ще раз.");
+        }
+      });
+
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $(".sms-button").click(function() {
+      var bookingId = $(this).closest('.reservation').find('.firstId').val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sms-booking/" + bookingId,
+        success: function(data) {
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+          alert("Помилка при обробці запиту. Спробуйте ще раз.");
+        }
+      });
+
+    });
+  });
+</script>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Vertical Header</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: "Rubik", sans-serif;-->
+<!--      font-optical-sizing: auto;-->
+<!--      font-style: normal;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--    }-->
+<!--    .container {-->
+<!--      display: flex;-->
+<!--    }-->
+<!--    .sidebar {-->
+<!--      width: 20vw;-->
+<!--      height: 100vh;-->
+<!--      background-color: #e9eee9;-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--      border-right: solid #f8faf8;-->
+<!--      margin-bottom: 200px;-->
+<!--      padding-top: 0px;-->
+<!--      position: fixed;-->
+<!--    }-->
+<!--    .side-item{-->
+<!--      margin-top: 20px;-->
+<!--    }-->
+<!--    .sidebar p {-->
+<!--      text-align: left;-->
+<!--    }-->
+
+
+<!--    .reservation {-->
+<!--      margin-left: 500px;-->
+<!--      margin-top: 20px;-->
+<!--      width: 350px;-->
+<!--      height: 120px;-->
+<!--      background-color: #008374;-->
+<!--      border-radius: 10px;-->
+<!--      padding: 10px;-->
+<!--      }-->
+
+<!--    .reservations-container {-->
+<!--      display: flex; /* Використовуємо flexbox для розміщення блоків один під одним */-->
+<!--      flex-direction: column; /* Розміщуємо блоки вертикально */-->
+<!--    }-->
+
+<!--    .reservation p {-->
+<!--      margin: 0;-->
+<!--    }-->
+
+<!--    .reservation button {-->
+<!--      font-weight: 15;-->
+<!--      font-size: 12px;-->
+<!--      letter-spacing: 1px;-->
+<!--      display: inline-block;-->
+<!--      padding: 6px 8px;-->
+<!--      border-radius: 50px;-->
+<!--      transition: 0.3s;-->
+<!--      color: #fff;-->
+<!--      background: rgba(255, 255, 255, 0.1);-->
+<!--      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);-->
+<!--      border: 2px solid rgba(255, 255, 255, 0.1);-->
+<!--    }-->
+
+<!--    .first{-->
+<!--      width: 100%;-->
+<!--      height: 25%;-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: space-around;-->
+<!--    }-->
+<!--    .second{-->
+<!--      font-size: 15px;-->
+<!--      width: 100%;-->
+<!--      height: 25%;-->
+<!--      display: flex;-->
+<!--    }-->
+<!--    .three{-->
+<!--      font-size: 15px;-->
+<!--      width: 100%;-->
+<!--      height: 25%;-->
+<!--      display: flex;-->
+<!--      flex-wrap: wrap;-->
+<!--      border-bottom: 1px solid #026b5c;-->
+<!--    }-->
+<!--    .four{-->
+<!--      width: 100%;-->
+<!--      height: 25%;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;-->
+<!--    }-->
+<!--    .four > button{-->
+<!--      margin: 2px;-->
+<!--    }-->
+<!--    .second {-->
+<!--      flex-wrap: wrap; /* Дозволяємо елементам переноситись на новий рядок при необхідності */-->
+<!--    }-->
+
+<!--    .second > div {-->
+<!--      flex: 1; /* Рівномірно розподіляємо доступний простір між дочірніми елементами */-->
+<!--      border: 1px solid #027568; /* Додайте потрібне оформлення за необхідності */-->
+<!--      background-color: #027568;-->
+<!--      border-radius: 5px;-->
+<!--      margin: 1px; /* Додаємо маржі між блоками */-->
+<!--      font-size: 12px;-->
+<!--      text-align: center;-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--      color: #b4b4b4;-->
+<!--    }-->
+<!--    .three > div {-->
+<!--      flex: 1; /* Рівномірно розподіляємо доступний простір між дочірніми елементами */-->
+<!--      margin: 1px; /* Додаємо маржі між блоками */-->
+<!--      font-size: 12px;-->
+<!--      text-align: center;-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--      color: white;-->
+<!--    }-->
+<!--    .firstName{-->
+<!--      color: white;-->
+<!--      font-weight: bolder;-->
+<!--      font-size: 22px;-->
+<!--    }-->
+<!--    .firstPhone{-->
+<!--      color: white;-->
+<!--    }-->
+<!--    .firstId{-->
+<!--      color: #9d9b9b;-->
+<!--    }-->
+<!--    .content {-->
+<!--      display: flex;-->
+<!--      flex-direction: column; /* Встановлюємо напрямок розташування елементів по вертикалі */-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="container">-->
+<!--  <div class="sidebar">-->
+<!--    <h1 th:text="${restaurant.restaurantName}"></h1>-->
+<!--    <div class="side-item active" onclick="showBookings('confirmed')">-->
+<!--      <p><span class="icon">🟢</span>Активні</p>-->
+<!--    </div>-->
+<!--    <div class="side-item nonaccept" onclick="showBookings('unconfirmed')">-->
+<!--      <p><span class="icon">🟢</span>Неприйняті</p>-->
+<!--    </div>-->
+<!--    <div class="side-item history" onclick="showBookings('archived')">-->
+<!--      <p><span class="icon">🟢</span>Історія</p>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="content">-->
+<!--    <div class="reservations-container">-->
+<!--      <div th:each="booking : ${confirmedBookings}">-->
+<!--        <div class="reservation" id="confirmedBookings" style="display: none">-->
+<!--        <div class="first">-->
+<!--          <p class="firstId" th:text="${booking.id}"></p>-->
+<!--          <p class="firstName" th:text="${booking.userName}"></p>-->
+<!--          <p class="firstPhone" th:text="${booking.userPhone}"></p>-->
+<!--        </div>-->
+<!--        <div class="second">-->
+<!--          <div class="data">-->
+<!--            <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--          </div>-->
+<!--          <div class="number">-->
+<!--            <p th:text="${booking.numberOfPeople}"></p>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <p th:text="${booking.eventType}"></p>-->
+<!--          </div>-->
+<!--          <div class="status">-->
+<!--            <p th:text="${booking.status}"></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="three">-->
+<!--          <div>-->
+<!--            <div class="comentUser">-->
+<!--              <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="comentAdmin" th:text="${booking.commentAdmin}"></div>-->
+<!--        </div>-->
+<!--        <div class="four">-->
+<!--          <button>Прийняти</button>-->
+<!--          <button>Редагувати</button>-->
+<!--          <button>Видалити</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+
+<!--      <div th:each="booking : ${unconfirmedBookings}">-->
+<!--        <div class="reservation" id="unconfirmedBookings" style="display: none">-->
+<!--        <div class="first">-->
+<!--          <p class="firstId" th:text="${booking.id}"></p>-->
+<!--          <p class="firstName" th:text="${booking.userName}"></p>-->
+<!--          <p class="firstPhone" th:text="${booking.userPhone}"></p>-->
+<!--        </div>-->
+<!--        <div class="second">-->
+<!--          <div class="data">-->
+<!--            <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--          </div>-->
+<!--          <div class="number">-->
+<!--            <p th:text="${booking.numberOfPeople}"></p>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <p th:text="${booking.eventType}"></p>-->
+<!--          </div>-->
+<!--          <div class="status">-->
+<!--            <p th:text="${booking.status}"></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="three">-->
+<!--          <div>-->
+<!--            <div class="comentUser">-->
+<!--              <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="comentAdmin" th:text="${booking.commentAdmin}"></div>-->
+<!--        </div>-->
+<!--        <div class="four">-->
+<!--          <button>Прийняти</button>-->
+<!--          <button>Редагувати</button>-->
+<!--          <button>Видалити</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+<!--      <div th:each="booking : ${archivedBookings}">-->
+<!--        <div class="reservation" id="archivedBookings" style="display: none">-->
+<!--        <div class="first">-->
+<!--          <p class="firstId" th:text="${booking.id}"></p>-->
+<!--          <p class="firstName" th:text="${booking.userName}"></p>-->
+<!--          <p class="firstPhone" th:text="${booking.userPhone}"></p>-->
+<!--        </div>-->
+<!--        <div class="second">-->
+<!--          <div class="data">-->
+<!--            <p th:text="${#dates.format(booking.date, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--          </div>-->
+<!--          <div class="number">-->
+<!--            <p th:text="${booking.numberOfPeople}"></p>-->
+<!--          </div>-->
+<!--          <div class="reason">-->
+<!--            <p th:text="${booking.eventType}"></p>-->
+<!--          </div>-->
+<!--          <div class="status">-->
+<!--            <p th:text="${booking.status}"></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="three">-->
+<!--          <div>-->
+<!--            <div class="comentUser">-->
+<!--              <p>Коментар користувача: <span th:text="${booking.commentUser}"></span></p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="comentAdmin" th:text="${booking.commentAdmin}"></div>-->
+<!--        </div>-->
+<!--        <div class="four">-->
+<!--          <button>Прийняти</button>-->
+<!--          <button>Редагувати</button>-->
+<!--          <button>Видалити</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+<!--  </div>-->
+
+<!--</div>-->
+<!--<script>-->
+<!--  function showBookings(bookingsType) {-->
+<!--    var confirmedBookings = document.getElementById('confirmedBookings');-->
+<!--    var unconfirmedBookings = document.getElementById('unconfirmedBookings');-->
+<!--    var archivedBookings = document.getElementById('archivedBookings');-->
+
+<!--    confirmedBookings.style.display = "none";-->
+<!--    unconfirmedBookings.style.display = "none";-->
+<!--    archivedBookings.style.display = "none";-->
+
+<!--    if (bookingsType === 'confirmed') {-->
+<!--      confirmedBookings.style.display = "block";-->
+<!--    } else if (bookingsType === 'unconfirmed') {-->
+<!--      unconfirmedBookings.style.display = "block";-->
+<!--    } else if (bookingsType === 'archived') {-->
+<!--      archivedBookings.style.display = "block";-->
+<!--    }-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->

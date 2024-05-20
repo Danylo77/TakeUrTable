@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -23,13 +27,14 @@ public class Booking {
     @ManyToOne
     private Restaurant restaurant;
 
-    @ManyToOne
-    private User user;
+    private String userName;
+    private String userPhone;
 
-    private Date date;
+    private Timestamp date;
     private int numberOfPeople;
     private String eventType;
     private String commentUser;
     private String commentAdmin;
     private String status;
 }
+

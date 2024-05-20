@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmls:th="http://www.thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <title>TakeUrTable</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+      background-color: #008374;
+      color: white;
+    }
+
+    .container {
+      height: 55vh;
+      max-width: 500px;
+      margin: 10vh auto;
+      padding: 5px 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    h1 {
+      margin-bottom: 0px;
+      color: #008374;
+    }
+
+    form {
+      text-align: left;
+      max-height: calc(80vh - 170px);
+      overflow-y: auto;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+
+    .btn{
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 14px 40px;
+      border-radius: 50px;
+      transition: 0.3s;
+      color: #fff;
+      background: #1a9082;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      margin-left: 35%;
+    }
+    .btn:hover{
+      border: 2px solid rgb(255, 255, 255);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Вхід - TakeUrTable</h1>
+  <div th:if="${error}" class="alert alert-danger" style="color: red">
+    <p th:text="${error}"></p>
+  </div>
+  <form
+          method="post"
+          role="form"
+          th:action="@{/admin}"
+          th:object="${restaurantLogin}">
+    <input type="email" name="email" placeholder="Електронна пошта" required th:field="*{email}">
+    <input type="password" name="password" placeholder="Пароль" required th:field="*{password}"><br>
+    <br>
+
+    <button class="btn" type="submit">Увійти</button>
+  </form>
+</div>
+</body>
+</html>

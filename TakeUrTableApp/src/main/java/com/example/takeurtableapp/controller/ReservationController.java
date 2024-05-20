@@ -14,19 +14,13 @@ public class ReservationController {
         // Отримайте дані бронювання з тіла запиту
         String name = request.getName();
         String phone = request.getPhone();
-        // і т.д. Залежно від вашого ReservationRequest об'єкта
 
-        // Тут ви можете реалізувати логіку для збереження бронювання в базі даних або в іншому місці
 
-        // Поверніть відповідь клієнту
         return ResponseEntity.ok("Бронювання успішно здійснено");
     }
     public class ReservationRequest {
         private String name;
         private String phone;
-        // Додайте інші необхідні поля для бронювання
-
-        // Геттери і сеттери для полів
         public String getName() {
             return name;
         }

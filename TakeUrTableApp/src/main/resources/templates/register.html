@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    <title>Реєстрація ресторану - TakeUrTable</title>
+    <title>TakeUrTable</title>
     <style>
         body {
             margin: 0;
@@ -96,7 +96,12 @@
         .btn:hover{
             border: 2px solid rgb(255, 255, 255);
         }
+        .login{
+            color: #008374;
+            margin-left: 100px;
+        }
     </style>
+
 </head>
 <body>
 <div class="container">
@@ -121,6 +126,7 @@
         <textarea name="additional_info" rows="4" placeholder="Інформація про заклад" required th:field="*{information}"></textarea>
         <input type="text" name="photo_link" placeholder="Посилання на фото" th:field="*{photo}">
         <button class="btn" type="submit">Зареєструвати</button>
+        <a href="/login" class="login">Вже маєте аккаунт?</a>
     </form>
 </div>
 </body>

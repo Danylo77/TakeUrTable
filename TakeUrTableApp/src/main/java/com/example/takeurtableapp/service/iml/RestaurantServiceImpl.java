@@ -13,7 +13,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
-    //private PasswordEncoder passwordEncoder;
 
     @Override
     public Restaurant getRestaurantById(Long id) {
@@ -26,12 +25,17 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public Restaurant getRestaurantByEmail(String email) {
+        return restaurantRepository.findByEmail(email);
+    }
+
+    @Override
     public void saveRestaurant(RestaurantDto restaurantDto){
         Restaurant restaurant = new Restaurant();
         restaurant.setAdministratorName(restaurantDto.getAdministratorName());
         restaurant.setPhone(restaurantDto.getPhone());
         restaurant.setEmail(restaurantDto.getEmail());
-        restaurant.setPassword(restaurantDto.getAdministratorName());
+        restaurant.setPassword(restaurantDto.getPassword());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCity(restaurantDto.getCity());
         restaurant.setAddress(restaurantDto.getAddress());

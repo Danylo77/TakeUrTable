@@ -1,19 +1,17 @@
 package com.example.takeurtableapp.controller;
 
+import com.example.takeurtableapp.dto.BookingDto;
 import com.example.takeurtableapp.dto.RestaurantDto;
 import com.example.takeurtableapp.entity.Restaurant;
-import com.example.takeurtableapp.forms.ReservationForm;
 import com.example.takeurtableapp.repository.RestaurantRepository;
+import com.example.takeurtableapp.service.BookingService;
 import com.example.takeurtableapp.service.RestaurantService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RestaurantController {
@@ -22,18 +20,12 @@ public class RestaurantController {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private BookingService bookingService;
     @GetMapping("/")
     public String showMain(Model model) {
         return "main";
     }
-
-//    @GetMapping("/restaurants/{id}")
-//    public String showRestaurant(@PathVariable Long id, Model model) {
-//        Restaurant restaurant = restaurantService.getRestaurantById(id);
-//        model.addAttribute("restaurant", restaurant);
-//        System.out.println(restaurant.getRestaurantName());
-//        return "restaurantPage";
-//    }
 
     @GetMapping("/restaurant/{name}")
     public String showRestaurant(@PathVariable String name, Model model) {
@@ -45,8 +37,6 @@ public class RestaurantController {
             restaurant = new Restaurant(-999L,"","","","","","","","","");
             model.addAttribute("restaurant", restaurant);
         }
-        System.out.println(restaurant.getRestaurantName());
-        System.out.println("1");
         return "restaurantPage";
     }
 
@@ -68,11 +58,14 @@ public class RestaurantController {
             return "/register";
         }
         restaurantService.saveRestaurant(restaurantDto);
-        return "redirect:/register?sucess";
+        return "redirect:/login";
     }
 
     @GetMapping("/restaurant/{name}/booking")
-    public String showRestaurantBooking(@PathVariable String name, Model model) {
+    public String showRestaurantBooking(@PathVariable String name,
+                                        @RequestParam("userName") String userName,
+                                        @RequestParam("phone") String phone,
+                                        Model model) {
         Restaurant restaurant = restaurantService.getRestaurantByName(name);
         if (restaurant != null){
             model.addAttribute("restaurant", restaurant);
@@ -81,7 +74,16 @@ public class RestaurantController {
             restaurant = new Restaurant(-999L,"","","","","","","","","");
             model.addAttribute("restaurant", restaurant);
         }
-        System.out.println("Booking for" + restaurant.getRestaurantName());
+        BookingDto bookingDto = new BookingDto(restaurant.getId(), userName, phone);
+        model.addAttribute("bookingDto", bookingDto);
         return "restaurantBooking";
     }
+
+    @PostMapping("/sendBooking")
+    public String makeBoooking(@ModelAttribute("bookingDto") BookingDto bookingDto, Model model){
+        bookingDto.setStatus("Не підтверджено");
+        bookingService.saveBooking(bookingDto);
+        return "bookingFinish";
+    }
 }
+
