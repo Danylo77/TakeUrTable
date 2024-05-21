@@ -34,7 +34,7 @@ public class RestaurantController {
             model.addAttribute("restaurant", restaurant);
         }
         else{
-            restaurant = new Restaurant(-999L,"","","","","","","","","");
+            restaurant = new Restaurant(-999L,"Not found :(","ERROR","ERROR","ERROR","","","","","");
             model.addAttribute("restaurant", restaurant);
         }
         return "restaurantPage";

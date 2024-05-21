@@ -32,5 +32,4 @@ public class RestaurantDto {
     private String information;
     @NotEmpty
     private String photo;
-
 }

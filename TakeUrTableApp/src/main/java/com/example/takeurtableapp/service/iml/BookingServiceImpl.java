@@ -39,14 +39,16 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<Booking> getUnconfirmedBookingsByRestaurantId(Long restaurantId) {
         return bookingRepository.findAll().stream()
-                .filter(booking -> booking.getRestaurant().getId().equals(restaurantId) && "Не підтверджено".equals(booking.getStatus()))
+                .filter(booking -> booking.getRestaurant().getId().equals(restaurantId) &&
+                        "Не підтверджено".equals(booking.getStatus()))
                 .collect(Collectors.toList());
 
     }
     @Override
     public List<Booking> getConfirmedBookingsByRestaurantId(Long restaurantId) {
         return bookingRepository.findAll().stream()
-                .filter(booking -> booking.getRestaurant().getId().equals(restaurantId) && "Підтверджено".equals(booking.getStatus()))
+                .filter(booking -> booking.getRestaurant().getId().equals(restaurantId) &&
+                        "Підтверджено".equals(booking.getStatus()))
                 .collect(Collectors.toList());
 
     }
